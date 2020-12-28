@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  height: 100%;
+  background-color: #ffffff;
+  font-size: 10px;
+  font-family:'Arial Normal', 'Arial', sans-serif, sans-serif;
+}
+
+ul,li,ol {
+  list-style: none;
+}
+
+a {
+  text-decoration:none;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+/* 清除特殊标记的字体和字号 */
+address,caption,cite,code,dfn,em,strong,th,var {   
+  font-weight: normal;   
+  font-style: normal;   
+}
+
+/* 设置表格的边框被合并为一个单一的边框, 指定分隔边框模型中单元格边界之间的距离为0*/
+table {   
+  border-collapse: collapse;   
+  border-spacing: 0;   
+}
+
+/* 输入控件字体 */
+input,button,textarea,select,optgroup,option {
+  font-family:inherit;
+  font-size:inherit;
+  font-style:inherit;
+  font-weight:inherit;
+}
+
+/* 标题元素样式清除 */ 
+h1, h2, h3, h4, h5, h6 {
+  font-size:100%;
+  font-weight:normal;
+}

@@ -1,0 +1,25 @@
+npm i lib-flexible --save
+npm install px2rem-loader
+
+-main.js
+import 'lib-flexible/flexible'
+
+-vue.config.js
+module.exports = {
+  chainWebpack: config => {
+    config.module
+      .rule('css')
+        .test(/\.css$/)
+        .oneOf('vue')
+        .resourceQuery(/\?vue/)
+        .use('px2rem')
+          .loader('px2rem-loader')
+          .options({
+            remUnit: 75
+          })
+  }
+}
+
+
+-node_modules/..../flexible.js，更改   function refreshRem()函数里的
+       width = 540 * dpr        --->        width = <width> * dpr;

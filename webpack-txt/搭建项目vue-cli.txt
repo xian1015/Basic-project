@@ -1,0 +1,213 @@
+vue create <project name>
+choose Babel,Router,Vuex,CSS Pre-processors,Linter/Formatter,
+3.x/2.x
+Use history mode for router? :Yes
+Less/sass
+Standard
+Lint on save
+In package.json
+Yes/no
+->Save preset as:<name>
+
+-创建 vue.config.js
+
+-热更新：
+npm install --save-dev webpack-dev-server
+将package.json 中的serve修改为‘vue-cli-service serve --open && webpack-dev-server’
+
+-新建 base.config.js
+->
+const base ={
+  dev:'',
+  pro:''
+}
+export default base
+
+-引入element-ui
+npm i element-ui -S
+
+-引入axios
+npm install axios --save
+
+-引入dd.js
+npm install dingtalk-jsapi --save
+
+-创建api文件夹，/axios.js，/api.js，/moudle文件夹
+
+-main.js添加
+import axios from 'axios' // 引入axios
+import * as dd from 'dingtalk-jsapi' // 引入dd.js
+import api from './api/api' // 引入api
+import base from '../base.config' // 引入服务器链接
+import './utils/elementUI'
+
+// 将以上挂载到vue的原型上，方便使用
+Vue.prototype.$axios = axios
+Vue.prototype.$dd = dd
+Vue.prototype.$api = api
+Vue.prototype.$base = base
+
+Vue.config.productionTip = false // 运行时提示当前是否为生产环境
+
+-elemnent部分引用
+创建element.js
+-message重新封装
+创建onlyMsg.js
+
+
+-在eslintrc.js rules里添加
+"indent": ["off", 2],
+-若无，可以创建
+module.exports = {
+  root: true,
+  env: {
+    node: true
+  },
+  extends: [
+    'plugin:vue/essential',
+    '@vue/standard'
+  ],
+  parserOptions: {
+    parser: 'babel-eslint'
+  },
+  rules: {
+    "indent": ["off", 2],
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+  },
+
+}
+
+-vuex
+->index.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import state from './state'
+import mutations from './mutations'
+import actions from './actions'
+import * as getters from './getters'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state,
+  mutations,
+  actions,
+  getters,
+  modules: {
+  }
+})
+
+->state.js
+export default {
+  // user:{}
+}
+
+->getters.js
+// export const getUse = (state) => {
+//   return state.user
+// }
+
+->mutations.js
+export default {
+  // SET_USER (state, user) {
+  //   state.user = user
+  // }
+}
+
+->actions.js
+// actions 异步操作
+export default {
+  // async getAddress ({commit, state}) {
+  //   const geohash = state.latitude + ',' + state.longitude
+  //   const res = await reqAddress(geohash)
+  //   if (res.code === 0) {
+  //     const address = res.data
+  //     commit('getAddress', {address})
+  //   }
+  // }
+}
+
+-路由懒加载
+component: resolve => require(['@/views/Home/index.vue'], resolve),
+
+-menu.js
+export const menu = [
+  {
+    menuId: 1,
+    // menuName: '实务工具包', // 示例
+    // icon: '', // 示例
+    // url: '/toolkit', // 示例
+    menus: null,
+    roles: [] // 身份
+  },
+]
+
+-路由身份表鉴权
+    <el-menu router
+             :default-active="$route.path"
+             class="el-menu-vertical-demo"
+             text-color="#999"
+             active-text-color="#1abc9c">
+      <el-menu-item v-for="item in menuList"
+                    :index="item.url"
+                    :key="item.menuId">
+        <!-- <i class="el-icon-setting"></i> -->
+        <span slot="title"
+              class="menu-name">{{item.menuName}}</span>
+      </el-menu-item>
+    </el-menu>
+
+    computed: {
+      ...mapGetters(['getRole', 'UserAvatar', 'UserName']),
+      menuList () {
+        return this.filterRole(menu, this.getRole)
+      }
+    },
+     methods: {
+      // 路由列表身份鉴权,递归子路由
+      filterRole (menuList, role) {
+        return menuList.filter(item => {
+          if (this.hasPermission(item, role)) {
+            if (item.menus && item.menus.length > 0) {
+              item.menus = this.filterRole(item.menus, role)
+            }
+            return item
+          }
+        })
+      },
+      // 判断该路由对应 角色身份是否有权限
+      hasPermission (item, role) {
+        if (item.role && item.role.length > 0) {
+          return item.role.some(val => val === role)
+        } else {
+          return true
+        }
+      },
+    },
+
+
+-App.vue
+<template>
+  <div id="app">
+    <router-view />
+  </div>
+</template>
+
+<script>
+  export default {
+    mounted () {
+      // 将sessionStorage 数据 赋值到vuex里
+      sessionStorage.getItem('yazhuo') && this.$store.replaceState(Object.assign(this.$store.state, JSON.parse(sessionStorage.getItem('yazhuo'))))
+
+      // 在刷新之前 将vuex里的数据保存到sessionStorage中
+      window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem('yazhuo', JSON.stringify(this.$store.state))
+      })
+    }
+  }
+</script>
+
+<style lang="less">
+  @import url('./assets/css/reset.css');
+</style>

@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  touch-action: none;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  color: #4D4D4D;
+  font-size: 20px;
+  font-family: 'Microsoft YaHei', 'Arial Normal', 'Arial', sans-serif, sans-serif;
+  background-color: #f9f9f9;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 !important;
+  /* width: 100%; */
+  /* height: 100vh; */
+}
+  body::-webkit-scrollbar {
+    width: 4px;
+    /*height: 4px;*/
+  }
+  body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+  }
+  body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+/* ::-webkit-scrollbar{
+  display:none;
+} */
+.homeWidth{
+  margin: 0 auto;
+  padding-right: 20px;
+  transition: all 0.2s ease-in-out;
+  /* margin-left: 20px; */
+}
+@media (min-width: 0px) {
+  html,
+  body{
+    font-size: 12px;
+  }
+  .homeWidth{
+    width: 768px;
+    transition: all 0.2s ease-in-out;
+  }
+}
+@media (min-width: 768px) {
+  .homeWidth{
+    width: 768px;
+    transition: all 0.2s ease-in-out;
+  }
+}
+@media (min-width: 960px) {
+  html,
+  body{
+    font-size: 20px;
+  }
+  .homeWidth{
+    width: 960px;
+    transition: all 0.2s ease-in-out;
+  }
+}
+@media (min-width: 1240px) {
+  .homeWidth{
+    width: 1240px;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+ul,li,ol {
+  list-style: none;
+}
+
+a {
+  text-decoration:none;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+/* 清除特殊标记的字体和字号 */
+address,caption,cite,code,dfn,em,strong,th,var {   
+  font-weight: normal;   
+  font-style: normal;   
+}
+
+/* 设置表格的边框被合并为一个单一的边框, 指定分隔边框模型中单元格边界之间的距离为0*/
+table {   
+  border-collapse: collapse;   
+  border-spacing: 0;   
+}
+
+/* 输入控件字体 */
+input,button,textarea,select,optgroup,option {
+  font-family:inherit;
+  font-size:inherit;
+  font-style:inherit;
+  font-weight:inherit;
+}
+
+/* 标题元素样式清除 */ 
+h1, h2, h3, h4, h5, h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+
+img {
+  object-fit: cover;
+}
+
+.boxShadow{
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+}
